@@ -2,8 +2,8 @@
 import { Person } from "./Person";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import InfiniteScroll from "react-infinite-scroller";
-// import InfiniteScroll from "react-infinite-scroll-component";
+// import InfiniteScroll from "react-infinite-scroller";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const initialUrl = "https://swapi.dev/api/people/";
 
@@ -42,14 +42,18 @@ export function InfinitePeople() {
   console.log("Loading", data);
 
   return (
-    <div id="scrollableDiv">
+    <div className="content" id="scrollableDiv">
       {isFetching && <div>Fetching</div>}
       <InfiniteScroll
-        // dataLength={data.pageParams.length}
-        loadMore={() => {
-          if (!isFetching) fetchNextPage();
-        }}
+        dataLength={data.pages.length}
+        next={fetchNextPage}
         hasMore={hasNextPage}
+        loader={<h4>Loading...</h4>}
+        scrollableTarget="scrollableDiv"
+        // loadMore={() => {
+        //   if (!isFetching) fetchNextPage();
+        // }}
+        // hasMore={hasNextPage}
         // loader={<h4>Loading...</h4>}
         // scrollableTarget="scrollableDiv"
       >

@@ -20,6 +20,6 @@ body {
 .content{
   height: 400px;
   width: 500px;
-  overflow: hidden;
-  background-color: grey;
+  overflow: auto;
+  background-color: rgb(19, 19, 19);
 }
