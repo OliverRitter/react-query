@@ -1,7 +1,7 @@
 // import InfiniteScroll from "react-infinite-scroller";
 import { Person } from "./Person";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useState } from "react";
+// import { useState } from "react";
 // import InfiniteScroll from "react-infinite-scroller";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -11,7 +11,7 @@ const fetchUrl = async (url) => {
   try {
     const res = fetch(url);
     return (await res).json();
-  } catch (e) {}
+  } catch (e) { console.log(e) }
 };
 
 export function InfinitePeople() {
@@ -25,9 +25,9 @@ export function InfinitePeople() {
     isError,
   } = useInfiniteQuery({
     queryKey: ["sw-people"],
-    queryFn: ({ pageParams = initialUrl }) => {
-      console.log({ pageParams });
-      return fetchUrl(pageParams);
+    queryFn: ({ pageParam = initialUrl }) => {
+      console.log({ pageParam });
+      return fetchUrl(pageParam);
     },
     getNextPageParam: (lastPage, allPages) => {
       console.log({ lastPage, allPages });
@@ -50,12 +50,12 @@ export function InfinitePeople() {
         hasMore={hasNextPage}
         loader={<h4>Loading...</h4>}
         scrollableTarget="scrollableDiv"
-        // loadMore={() => {
-        //   if (!isFetching) fetchNextPage();
-        // }}
-        // hasMore={hasNextPage}
-        // loader={<h4>Loading...</h4>}
-        // scrollableTarget="scrollableDiv"
+      // loadMore={() => {
+      //   if (!isFetching) fetchNextPage();
+      // }}
+      // hasMore={hasNextPage}
+      // loader={<h4>Loading...</h4>}
+      // scrollableTarget="scrollableDiv"
       >
         {data.pages.map((pageData) => {
           return pageData.results.map((person) => {
